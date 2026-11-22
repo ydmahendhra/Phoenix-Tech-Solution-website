@@ -12,19 +12,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 30);
 
-      // Detect active section
       const sections = ['hero', 'about', 'services', 'leadership', 'contact'];
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
+          if (rect.top <= 200 && rect.bottom >= 200) {
             setActiveSection(section);
             break;
           }
@@ -37,8 +32,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#hero', id: 'hero' },
-    { name: 'About Us', href: '#about', id: 'about' },
+    { name: 'About', href: '#about', id: 'about' },
     { name: 'Services', href: '#services', id: 'services' },
     { name: 'Leadership', href: '#leadership', id: 'leadership' },
     { name: 'Contact', href: '#contact', id: 'contact' },
@@ -59,41 +53,40 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#030712]/85 backdrop-blur-xl border-b border-cyan-500/15 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.8)]'
-          : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5'
+          ? 'bg-[#05070E]/80 backdrop-blur-xl border-b border-white/5 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+          : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo & Brand Name */}
+          {/* Logo & Brand Name - The ONLY place the company logo is displayed */}
           <a
             href="#hero"
             onClick={(e) => handleLinkClick(e, 'hero')}
-            className="flex items-center gap-3 group relative cursor-pointer"
+            className="flex items-center gap-3 group cursor-pointer"
           >
-            <div className="relative w-11 h-11 rounded-xl overflow-hidden p-[1px] bg-gradient-to-br from-orange-500 via-amber-400 to-cyan-400 shadow-[0_0_15px_rgba(255,106,0,0.35)] transition-transform duration-300 group-hover:scale-105">
+            <div className="relative w-10 h-10 rounded-xl overflow-hidden p-[1px] bg-gradient-to-br from-orange-500/80 via-amber-400/50 to-cyan-400/80 shadow-[0_0_20px_rgba(255,106,0,0.25)] transition-transform duration-300 group-hover:scale-105">
               <img
                 src="/assets/phoenix-logo.jpg"
                 alt="Phoenix Tech Solution Logo"
                 className="w-full h-full object-cover rounded-[11px]"
               />
-              <div className="absolute inset-0 bg-cyan-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
             </div>
 
             <div className="flex flex-col">
-              <span className="font-['Syne'] font-extrabold text-lg sm:text-xl tracking-wider text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-orange-400 group-hover:via-amber-300 group-hover:to-cyan-400 transition-colors">
+              <span className="font-['Syne'] font-extrabold text-base sm:text-lg tracking-wider text-white transition-colors group-hover:text-cyan-400">
                 PHOENIX
               </span>
-              <span className="font-['Space_Grotesk'] text-[10px] sm:text-xs tracking-[0.25em] font-semibold text-cyan-400/90 uppercase">
+              <span className="font-['Space_Grotesk'] text-[9px] sm:text-[10px] tracking-[0.25em] font-semibold text-slate-400 uppercase">
                 Tech Solution
               </span>
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2 bg-slate-900/40 p-1.5 rounded-full border border-slate-800/80 backdrop-blur-md">
+          {/* Desktop Navigation Links (The Goat Scale & Genzzi Minimal Pill) */}
+          <nav className="hidden md:flex items-center gap-1 bg-[#090D1A]/60 px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-md">
             {navLinks.map((link) => {
               const isActive = activeSection === link.id;
               return (
@@ -101,83 +94,68 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                   key={link.id}
                   href={link.href}
                   onClick={(e) => handleLinkClick(e, link.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 relative ${
+                  className={`px-4 py-1.5 rounded-full text-xs uppercase tracking-wider font-medium transition-all duration-200 ${
                     isActive
-                      ? 'text-white bg-gradient-to-r from-orange-500/20 via-cyan-500/20 to-blue-500/20 border border-cyan-400/30 shadow-[0_0_15px_rgba(0,229,255,0.2)]'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+                      ? 'text-white bg-white/10 shadow-[0_0_12px_rgba(0,229,255,0.15)] text-cyan-300'
+                      : 'text-slate-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   {link.name}
-                  {isActive && (
-                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-0.5 bg-gradient-to-r from-orange-500 to-cyan-400 rounded-full shadow-[0_0_8px_#00E5FF]" />
-                  )}
                 </a>
               );
             })}
           </nav>
 
-          {/* Action CTA Button */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Header Action Button */}
+          <div className="hidden sm:flex items-center">
             <a
               href="#contact"
               onClick={(e) => handleLinkClick(e, 'contact')}
-              className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-xs font-semibold rounded-full group cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wider uppercase text-white bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 shadow-[0_0_20px_rgba(255,106,0,0.3)] transition-all duration-300 hover:scale-105"
             >
-              <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-orange-500 via-amber-500 to-cyan-500 group-hover:from-orange-600 group-hover:to-cyan-400 transition-all duration-300"></span>
-              <span className="relative px-5 py-2.5 transition-all ease-out bg-[#070D1E] rounded-full group-hover:bg-opacity-0 duration-300 flex items-center gap-1.5 text-white shadow-[0_0_15px_rgba(255,106,0,0.25)]">
-                <span>Initiate Contact</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-cyan-400 group-hover:text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </span>
+              <span>Get in Touch</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden">
+          <div className="flex md:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-700/60 text-slate-200 hover:text-white hover:border-cyan-400/50 transition-colors"
-              aria-label="Toggle Navigation Menu"
+              className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 border border-white/10 transition-colors"
+              aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6 text-orange-400" /> : <Menu className="w-6 h-6 text-cyan-400" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
-
-        {/* Mobile Navigation Drawer */}
-        {mobileMenuOpen && (
-          <div className="md:hidden mt-3 p-4 rounded-2xl bg-[#070D1E]/95 border border-cyan-500/20 backdrop-blur-2xl shadow-2xl animate-in fade-in slide-in-from-top-4 duration-300">
-            <div className="flex flex-col space-y-2">
-              {navLinks.map((link) => {
-                const isActive = activeSection === link.id;
-                return (
-                  <a
-                    key={link.id}
-                    href={link.href}
-                    onClick={(e) => handleLinkClick(e, link.id)}
-                    className={`px-4 py-3 rounded-xl text-base font-medium transition-all ${
-                      isActive
-                        ? 'text-white bg-gradient-to-r from-orange-500/20 to-cyan-500/20 border border-cyan-500/30'
-                        : 'text-slate-300 hover:text-white hover:bg-slate-800/40'
-                    }`}
-                  >
-                    {link.name}
-                  </a>
-                );
-              })}
-              <div className="pt-3 border-t border-slate-800">
-                <a
-                  href="#contact"
-                  onClick={(e) => handleLinkClick(e, 'contact')}
-                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 text-white font-semibold text-sm shadow-[0_0_20px_rgba(255,106,0,0.3)]"
-                >
-                  <span>Contact Us</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-[#05070E]/95 backdrop-blur-2xl border-b border-white/10 px-6 py-6 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
+          <nav className="flex flex-col space-y-3">
+            {navLinks.map((link) => (
+              <a
+                key={link.id}
+                href={link.href}
+                onClick={(e) => handleLinkClick(e, link.id)}
+                className="text-sm font-medium text-slate-300 hover:text-white py-2 border-b border-white/5"
+              >
+                {link.name}
+              </a>
+            ))}
+          </nav>
+          <a
+            href="#contact"
+            onClick={(e) => handleLinkClick(e, 'contact')}
+            className="w-full text-center inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-xs font-semibold tracking-wider uppercase text-white bg-gradient-to-r from-orange-500 to-amber-500 shadow-lg"
+          >
+            <span>Get in Touch</span>
+            <ArrowUpRight className="w-4 h-4" />
+          </a>
+        </div>
+      )}
     </header>
   );
 };

@@ -21,35 +21,35 @@ export function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#030712] text-slate-100 selection:bg-orange-500/30 selection:text-white overflow-x-hidden">
-      {/* Genzzi.in-inspired Smooth Kinetic Scroll & Cursor Glow Trail */}
+    <div className="relative min-h-screen bg-[#05070E] text-slate-100 selection:bg-orange-500/30 selection:text-white overflow-x-hidden">
+      {/* Smooth Kinetic Scroll & Subtle Glow Trail */}
       <GenzziEffects />
 
-      {/* Interactive 3D Technology Wave Canvas (Parallax / Ambient Wireframe) */}
+      {/* Subtle Interactive 3D Ambient Wave Canvas */}
       <InteractiveWaveCanvas />
 
-      {/* Modern Sticky Navigation */}
+      {/* Header - The ONLY place the company logo is displayed */}
       <Navbar />
 
-      {/* Main Content Container */}
+      {/* Main Content Sections */}
       <main className="relative z-10">
-        {/* 1. Hero Section with Cinematic Phoenix Video Background */}
+        {/* 1. Hero with Cinematic Phoenix Video Background */}
         <Hero />
 
-        {/* 2. About Our Company */}
+        {/* 2. About Company - Concise, professional, no fluff */}
         <About />
 
-        {/* 3. Our Services – Three Main Divisions (Software, Hardware, Creative) */}
+        {/* 3. Services - Three Core Divisions in The Goat Scale structured layout */}
         <Services onSelectService={handleSelectServiceForInquiry} />
 
-        {/* 4. Executive Leadership – Founder & CEO (Y D Mahendhra) and Co-Founder & CFO (Praveen Kumar P) */}
+        {/* 4. Leadership - Founder & CEO and Co-Founder & COO */}
         <Leadership />
 
-        {/* 5. Contact Section & Direct Communication Desk */}
+        {/* 5. Contact Section - Clean, direct, minimal */}
         <Contact prefilledSubject={prefilledContactSubject} />
       </main>
 
-      {/* Premium Footer */}
+      {/* 6. Minimal Footer */}
       <Footer onSelectService={handleSelectServiceForInquiry} />
     </div>
   );
